@@ -3,25 +3,27 @@
 //------------------
 //FUNCTIONS
 //------------------
-function myCreateEl(tagEl, classEl, numCell, level){
-    const element = document.createElement(tagEl);  //creazioen div class= cell
+// ELEMENT CREATION
+function myCreateEl(tagEl, classEl, numCell, level, arrayBombs){
+    const element = document.createElement(tagEl);  //creazione div class= cell
     element.classList.add(classEl);
     element.classList.add(level);
     element.innerText = numCell;
-    //CAMBIO COLORE
+    //CONTROLLO BOMBE
     element.addEventListener('click',
         function(){
-            element.classList.add('colorbg');
-            console.log(numCell);
+             bombCheck(arrayBombs, numCell, element);
         }
     )
     return element;
 }
 
+//APPEND CONTAINER
 function appendElement(containerEl, sonEl){
     containerEl.append(sonEl);
 }
 
+// ARRAY GENERATOR
 function generaBombe(arrayVuoto, numMax){
     while (arrayVuoto.length < 16){
         const randomNumber = getRandomNumber(numMax);
@@ -32,11 +34,20 @@ function generaBombe(arrayVuoto, numMax){
     return arrayVuoto;
 }
 
+// RANDOM NUMBER GENERATOR
 function getRandomNumber(numMax){
     const randomNum = Math.floor(Math.random() * numMax) +1 ;
     return randomNum;
 }
 
+//CHECK ARRAY & CELL NUMBER
+function bombCheck(arrayBombe, numCell, element){
+    if (arrayBombe.includes(numCell)){
+        element.classList.add('colorbgbomb');
+    } else{
+        element.classList.add('colorbgright');
+    }
+}
 //------------------
 //MAIN
 //------------------
@@ -67,14 +78,14 @@ button.addEventListener('click',
                 break;
         }
         cellBoard.innerHTML = ''; // reset board
-        //riempimento board
-        for(let i = 1; i <= numberOfCells; i++){
-            const createdElement = myCreateEl('div', 'cell', i, classLV);
-            appendElement(cellBoard, createdElement);
-        }
-
+        // ARRAY BOMBS
         let bombe = [];
         bombe = generaBombe(bombe, numberOfCells);
         console.log(bombe);
+        //riempimento board
+        for(let i = 1; i <= numberOfCells; i++){
+            const createdElement = myCreateEl('div', 'cell', i, classLV, bombe);
+            appendElement(cellBoard, createdElement);
+        }
     }
 );

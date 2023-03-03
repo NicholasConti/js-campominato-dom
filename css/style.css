@@ -63,8 +63,14 @@ main{
     align-items: center;
 }
 
-.colorbg{
-    background-color: aqua;
+.colorbgright{
+    background-color: blue;
+    color: white;
+}
+
+.colorbgbomb{
+    background-color: red;
+    color: white;
 }
 
 .lv1{
