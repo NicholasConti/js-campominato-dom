@@ -22,6 +22,20 @@ function appendElement(containerEl, sonEl){
     containerEl.append(sonEl);
 }
 
+function generaBombe(arrayVuoto, numMax){
+    while (arrayVuoto.length < 16){
+        const randomNumber = getRandomNumber(numMax);
+        if (!(arrayVuoto.includes(randomNumber))){
+            arrayVuoto.push(randomNumber);
+        }
+    }
+    return arrayVuoto;
+}
+
+function getRandomNumber(numMax){
+    const randomNum = Math.floor(Math.random() * numMax) +1 ;
+    return randomNum;
+}
 
 //------------------
 //MAIN
@@ -59,5 +73,8 @@ button.addEventListener('click',
             appendElement(cellBoard, createdElement);
         }
 
+        let bombe = [];
+        bombe = generaBombe(bombe, numberOfCells);
+        console.log(bombe);
     }
 );
