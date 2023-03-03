@@ -11,10 +11,15 @@ function myCreateEl(tagEl, classEl, numCell, level, arrayBombs){
     element.innerText = numCell;
     //CONTROLLO BOMBE
     element.addEventListener('click',
-        function(){
-             bombCheck(arrayBombs, numCell, element);
+        function (){
+             
+             if (bombCheck(arrayBombs, numCell, element) === true){
+                alert('hai perso');
+             }
         }
+        
     )
+    
     return element;
 }
 
@@ -42,11 +47,16 @@ function getRandomNumber(numMax){
 
 //CHECK ARRAY & CELL NUMBER
 function bombCheck(arrayBombe, numCell, element){
+    let control = false
     if (arrayBombe.includes(numCell)){
         element.classList.add('colorbgbomb');
+        control = true;
+        return control;
     } else{
         element.classList.add('colorbgright');
+        return control;
     }
+    
 }
 //------------------
 //MAIN
