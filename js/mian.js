@@ -18,15 +18,9 @@ function myCreateEl(tagEl, classEl, i, level){
     element.classList.add(level);
     element.innerText = i;
     element.addEventListener('click', function clickCell(){
-        //bombCheck(element, bombe, i);
-        if (bombCheck(element, bombe, i) === false){
-            for(let y = 0; y < bombe.length; y++){
-
-            }
-        }
+        bombCheck(element, bombe, i);
     })
     return element;
-    
 }
 
 //APPEND CONTAINER
@@ -67,8 +61,7 @@ function bombCheck(element, arraybombe, i){
         scoreTxt.innerHTML = (`HAI PERSO!!`);
         clickEnable = false;
         return false;
-    }
-    
+    } 
 }
 //------------------
 //MAIN
