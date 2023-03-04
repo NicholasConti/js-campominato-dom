@@ -18,7 +18,12 @@ function myCreateEl(tagEl, classEl, i, level){
     element.classList.add(level);
     element.innerText = i;
     element.addEventListener('click', function clickCell(){
-        bombCheck(element, bombe, i)
+        //bombCheck(element, bombe, i);
+        if (bombCheck(element, bombe, i) === false){
+            for(let y = 0; y < bombe.length; y++){
+
+            }
+        }
     })
     return element;
     
@@ -54,12 +59,14 @@ function bombCheck(element, arraybombe, i){
         score++;
         scoreTxt.innerHTML = (`Il tuo punteggio e ${score}`);
         if (score === (numberOfCells - arraybombe.length)){
-            scoreTxt.innerHTML = (`HAI VINTO!!`);
+            scoreTxt.innerHTML = (`HAI VINTO!! il tuo punteggio e ${score}`);
+            clickEnable = false;
         }
     } else if((arraybombe.includes(i) === true) && (clickEnable === true)){
         element.classList.add('colorbgbomb');
         scoreTxt.innerHTML = (`HAI PERSO!!`);
         clickEnable = false;
+        return false;
     }
     
 }
@@ -99,6 +106,8 @@ button.addEventListener('click',
                 numberOfCells = 49;
                 break;
         }
+        clickEnable = true;
+        score = 0;
         cellBoard.innerHTML = ''; // reset board
         // ARRAY BOMBS
         
