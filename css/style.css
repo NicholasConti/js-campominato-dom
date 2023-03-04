@@ -20,17 +20,13 @@ header{
     justify-content: space-between;
 }
 
-header div:first-child{
+header div{
     display: flex;
     align-items: center;
 }
 img{
     width: 60px;
     margin-right: 10px;
-}
-header div:last-child{
-    display: flex;
-    align-items: center;
 }
 
 input , select{

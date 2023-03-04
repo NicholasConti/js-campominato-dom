@@ -48,14 +48,18 @@ function getRandomNumber(numMax){
 
 //CHECK ARRAY & CELL NUMBER
 function bombCheck(element, arraybombe, i){
-    if(arraybombe.includes(i) === false){
+    const scoreTxt = document.getElementById('score');
+    if((arraybombe.includes(i) === false) && (clickEnable === true)){
         element.classList.add('colorbgright');
         score++;
+        scoreTxt.innerHTML = (`Il tuo punteggio e ${score}`);
         if (score === (numberOfCells - arraybombe.length)){
-            alert('hai vinto!!');
+            scoreTxt.innerHTML = (`HAI VINTO!!`);
         }
-    } else {
+    } else if((arraybombe.includes(i) === true) && (clickEnable === true)){
         element.classList.add('colorbgbomb');
+        scoreTxt.innerHTML = (`HAI PERSO!!`);
+        clickEnable = false;
     }
     
 }
@@ -73,6 +77,8 @@ let bombe = [];
 let score = 0;
 
 let numberOfCells;
+
+let clickEnable = true;
 
 //creazione tabella
 button.addEventListener('click',
