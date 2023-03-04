@@ -3,24 +3,25 @@
 //------------------
 //FUNCTIONS
 //------------------
-// ELEMENT CREATION
-function myCreateEl(tagEl, classEl, numCell, level, arrayBombs){
+
+//RIEPMPIMENTO BOARD    
+function fullBoard(cnt, numMax, lv){
+    for(let i = 1; i <= numMax; i++){
+        const createdElement = myCreateEl('div', 'cell', i, lv);
+        appendElement(cnt, createdElement);
+    }
+}
+// CREAZIONE ELEMENTO
+function myCreateEl(tagEl, classEl, i, level){
     const element = document.createElement(tagEl);  //creazione div class= cell
     element.classList.add(classEl);
     element.classList.add(level);
-    element.innerText = numCell;
-    //CONTROLLO BOMBE
-    element.addEventListener('click',
-        function (){
-             
-             if (bombCheck(arrayBombs, numCell, element) === true){
-                alert('hai perso');
-             }
-        }
-        
-    )
-    
+    element.innerText = i;
+    element.addEventListener('click', function clickCell(){
+        bombCheck(element, bombe, i)
+    })
     return element;
+    
 }
 
 //APPEND CONTAINER
@@ -46,15 +47,15 @@ function getRandomNumber(numMax){
 }
 
 //CHECK ARRAY & CELL NUMBER
-function bombCheck(arrayBombe, numCell, element){
-    let control = false
-    if (arrayBombe.includes(numCell)){
-        element.classList.add('colorbgbomb');
-        control = true;
-        return control;
-    } else{
+function bombCheck(element, arraybombe, i){
+    if(arraybombe.includes(i) === false){
         element.classList.add('colorbgright');
-        return control;
+        score++;
+        if (score === (numberOfCells - arraybombe.length)){
+            alert('hai vinto!!');
+        }
+    } else {
+        element.classList.add('colorbgbomb');
     }
     
 }
@@ -67,12 +68,17 @@ const button = document.getElementById("start");
 
 const select = document.getElementById("levels");
 
+let bombe = [];
+
+let score = 0;
+
+let numberOfCells;
+
 //creazione tabella
 button.addEventListener('click',
     function(){
         // variabili per cambiare numero caselle e assegnare classe con dimsensioni diverse
         let classLV;
-        let numberOfCells;
         switch (select.value) {
             case 'lv1':
                 classLV = 'lv1';
@@ -89,13 +95,11 @@ button.addEventListener('click',
         }
         cellBoard.innerHTML = ''; // reset board
         // ARRAY BOMBS
-        let bombe = [];
+        
         bombe = generaBombe(bombe, numberOfCells);
         console.log(bombe);
         //riempimento board
-        for(let i = 1; i <= numberOfCells; i++){
-            const createdElement = myCreateEl('div', 'cell', i, classLV, bombe);
-            appendElement(cellBoard, createdElement);
-        }
+        fullBoard(cellBoard, numberOfCells, classLV );
+        
     }
 );
